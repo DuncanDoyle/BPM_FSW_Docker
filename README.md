@@ -6,6 +6,9 @@ I personally use this setup whenever I have to present these topics to some audi
 
 Instructions on how to install and run will follow!
 
+A first video-screenrecording can be found here:
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](http://youtu.be/Ku1-UpeW3qI)
+
 Have fun and feel free to comment me with questions, improvment ideas, et. al
 
 Patrick
