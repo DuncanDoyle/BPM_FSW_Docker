@@ -33,7 +33,7 @@ RUN mkdir $HOME/tmp
    
 ADD . $HOME/tmp/
 
-RUN /usr/bin/unzip -q $HOME/tmp/jboss-eap-6.1.1.zip -d $HOME/eap
+RUN /usr/bin/unzip -q $HOME/tmp/jboss-eap-6.1.*.zip -d $HOME/eap
 
 RUN cp $HOME/tmp/mgmt-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration
 
