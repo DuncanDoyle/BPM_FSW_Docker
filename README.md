@@ -44,7 +44,7 @@ Please copy the downloaded products as follows:
 Details on creating the images is documented in the Readme's of the subdirectories.
 
 If you prefer to see all this in a video, here we go:
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](http://youtu.be/Ku1-UpeW3qI)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](http://youtu.be/9aKRDL1sWuM)
 
 Starting the images
 ==================
