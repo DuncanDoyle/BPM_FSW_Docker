@@ -7,10 +7,6 @@ USER root
 
 # Update the system
 RUN yum -y update;yum clean all
-RUN yum -y install openssh-server;
-
-RUN service sshd start
-RUN chkconfig sshd on
 
 ############################################
 # Copy JBoss BPM-Suite
