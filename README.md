@@ -51,7 +51,7 @@ Please copy the downloaded products as follows:
 Details on creating the images is documented in the Readme's of the subdirectories.
 
 If you prefer to see all this in a video, here we go:
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](http://youtu.be/9aKRDL1sWuM)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/9aKRDL1sWuM/0.jpg)](https://www.youtube.com/watch?v=9aKRDL1sWuM)
 
 Starting the images
 ==================
@@ -71,7 +71,7 @@ Running the images
 A first video on how to start and run the environment is here:
 
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](https://www.youtube.com/watch?v=aB8e0gcXkUw)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/aB8e0gcXkUw/0.jpg)](https://www.youtube.com/watch?v=aB8e0gcXkUw)
 
 Have fun and feel free to comment me with questions, improvment ideas, et. al
 
