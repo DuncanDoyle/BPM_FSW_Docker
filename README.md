@@ -11,17 +11,24 @@ For the demo we will need two Docker-Images one hosting Red Hat JBoss BPM-Suite 
 BPM image
 ---------
 This image is made out of 3 layers
-1. Red Hat JBoss EAP ( image-name psteiner/eap )
-2. Red Hat JBoss BPM Suite ( image-name psteiner/bpm )
-3. WebService consumer deployed into layer 2 ( image-name psteiner/heise_bpm )
+
+   1. Red Hat JBoss EAP ( image-name psteiner/eap )
+
+   2. Red Hat JBoss BPM Suite ( image-name psteiner/bpm )
+
+   3. WebService consumer deployed into layer 2 ( image-name psteiner/heise_bpm )
+
 
 Each of the images can be used for other purposes as well.
 
 Fuse ServiceWorks image
 -----------------------
 This image is made out of 2 layers
-1. Red Hat JBoss Fuse ServiceWorks ( image-name psteiner/fsw )
-2. WebService provider deployed into layer 1 ( image-name psteiner/heise_fsw )
+
+   1. Red Hat JBoss Fuse ServiceWorks ( image-name psteiner/fsw )
+
+   2. WebService provider deployed into layer 1 ( image-name psteiner/heise_fsw )
+
 
 Each of the images can be used for other purposes as well.
 
