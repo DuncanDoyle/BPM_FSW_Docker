@@ -60,9 +60,8 @@ Running the images
 
 A first video on how to start and run the environment is here:
 
-[![IMAGE ALT TEXT HERE]()](http://youtu.be/aB8e0gcXkUw)
 
-http://youtu.be/aB8e0gcXkUw
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Ku1-UpeW3qI/0.jpg)](https://www.youtube.com/watch?v=aB8e0gcXkUw)
 
 Have fun and feel free to comment me with questions, improvment ideas, et. al
 
