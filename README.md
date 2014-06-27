@@ -60,7 +60,7 @@ Running the images
 
 A first video on how to start and run the environment is here:
 
-[![IMAGE ALT TEXT HERE]](http://youtu.be/aB8e0gcXkUw)
+[![IMAGE ALT TEXT HERE]()](http://youtu.be/aB8e0gcXkUw)
 
 http://youtu.be/aB8e0gcXkUw
 
