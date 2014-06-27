@@ -53,11 +53,16 @@ As the two images depend on each other, via a Link, we need to run them in the r
 1. the Fuse ServiceWorks image  with the command `docker run -p 49260:8080 -p 49270:9990 -h fsw --name fsw -d psteiner/fsw_heise`
 2. the BPM-Suite image  with the command `docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --name bpms -d psteiner/heise_bpm`
 
+You can do this manually or by running the provided script `start.sh`.
+
 Running the images
 ==================
 
-to be continued!
+A first video on how to start and run the environment is here:
 
+[![IMAGE ALT TEXT HERE]](http://youtu.be/aB8e0gcXkUw)
+
+http://youtu.be/aB8e0gcXkUw
 
 Have fun and feel free to comment me with questions, improvment ideas, et. al
 
