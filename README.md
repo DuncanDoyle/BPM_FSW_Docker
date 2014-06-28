@@ -44,9 +44,9 @@ Please download the following Red Hat JBoss products:
 * [Red Hat JBoss FSW](http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip)
 
 Please copy the downloaded products as follows:
-* jboss-eap-6.1.0.GA.zip into the folder EAP_Image
-* jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x into the folder BPM_Image
-* jboss-fsw-6-0.0.GA.zip into the FSW_Image
+* jboss-eap-6.1.0.GA.zip into the folder `EAP_Image`
+* jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x into the folder `BPM_Image`
+* jboss-fsw-6-0.0.GA.zip into the `FSW_Image`
 
 Details on creating the images is documented in the Readme's of the subdirectories.
 
