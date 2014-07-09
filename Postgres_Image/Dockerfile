@@ -38,23 +38,11 @@ RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \
     $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
     $PGINST/bin/psql --command "CREATE DATABASE bamdb OWNER bam;" 
 
-USER root
-
-##############################################
-# Need to create a script which is then referenced by the CMD Docker command.
-# As the image seems to stop when the command is over, I have added an
-# infinit loop. This is ugly, ugly, ugly ... and needs to be solved 
-# If you have an idea how, please open an issue!!!
-##############################################
-RUN echo "service postgresql-9.3 start" > $HOME/start.sh
-RUN echo "while true;" >> $HOME/start.sh
-RUN echo "do sleep 100" >> $HOME/start.sh
-RUN echo "done" >> $HOME/start.sh
-RUN chmod +x $HOME/start.sh
-
 EXPOSE 5432
 
-CMD $HOME/start.sh
+USER postgres
+
+CMD ["/usr/pgsql-9.3/bin/postgres", "-D", "/var/lib/pgsql/9.3/data", "-c", "config_file=/var/lib/pgsql/9.3/data/postgresql.conf"]
 
 # Build command -> docker build --rm -t psteiner/postgres .
 # run command -> docker run  -p 49380:5432 -d psteiner/postgres
