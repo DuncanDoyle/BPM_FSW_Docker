@@ -4,16 +4,12 @@ FROM    centos:6.4
 MAINTAINER psteiner <psteiner@redhat.com>
 
 # Update the system
-# RUN yum -y update;yum clean all
+# RUN yum -y update
 
 ##########################################################
 # Install some missing stuff
 ##########################################################
-RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip;yum clean all
-RUN yum -y install unzip
-RUN yum -y install java-1.7.0-openjdk
-RUN yum clean all;
-
+RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip openssh-server openssh-clients; yum clean all
 ENV JAVA_HOME /usr/lib/jvm/jre
 
 
