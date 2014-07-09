@@ -24,7 +24,7 @@ USER jbosseap
 
 CMD $HOME/fsw/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
-EXPOSE 8080 9990
+EXPOSE 22 8080 9990
 
 # Build command -> docker build --rm -t psteiner/heise_fsw .
 # run command -> docker run -p 49260:8080 -p 49270:9990 -d psteiner/heise_fsw
