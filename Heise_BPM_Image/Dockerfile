@@ -23,10 +23,12 @@ RUN cp $HOME/tmp/BiPRO-Komposit-JAXB2-1.0.0.jar $HOME/eap/jboss-eap-6.1/standalo
 ############################################
 # Define command to start image
 ############################################
-USER jbosseap
-CMD $HOME/eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+USER root
 
-EXPOSE 8080 9990
+# Changing to directory $HOME so the .index directory is created in the correct place
+# TODO maybe configure uberfire correctly to configure the org.uberfire.metadata.index.dir property
+CMD service sshd start && su jbosseap -c "cd /home/jbosseap; ./eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"
+EXPOSE 22 8080 9990
 
 # Build command -> docker build --rm -t psteiner/heise_bpm .
 # run command -> docker run -p 49160:8080 -p 49170:9990 -d psteiner/heise_bpm
