@@ -31,9 +31,8 @@ RUN echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
 RUN echo "" >> $PGDATA/postgresql.conf
 
 #############################################
-# Switch to postgres user to prepare database
+# Create database for BPM-Suite BAM usage
 #############################################
-
 RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \ 
     $PGINST/bin/psql --command "ALTER USER postgres PASSWORD 'change12_me';" && \
     $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
@@ -41,6 +40,12 @@ RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \
 
 USER root
 
+##############################################
+# Need to create a script which is then referenced by the CMD Docker command.
+# As the image seems to stop when the command is over, I have added an
+# infinit loop. This is ugly, ugly, ugly ... and needs to be solved 
+# If you have an idea how, please open an issue!!!
+##############################################
 RUN echo "service postgresql-9.3 start" > $HOME/start.sh
 RUN echo "while true;" >> $HOME/start.sh
 RUN echo "do sleep 100" >> $HOME/start.sh
