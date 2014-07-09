@@ -23,6 +23,7 @@ RUN cp $HOME/tmp/BiPRO-Komposit-JAXB2-1.0.0.jar $HOME/eap/jboss-eap-6.1/standalo
 ############################################
 # Define command to start image
 ############################################
+USER jbosseap
 CMD $HOME/eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
 EXPOSE 8080 9990
