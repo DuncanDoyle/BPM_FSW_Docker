@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Created by Juergen Hoffmann ( https://github.com/juhoffma )
+#
 
 # This script builds all required docker images.
 # Run this script before you run the start.sh script.
@@ -70,8 +73,6 @@ remove_image $BPM_IMAGE_NAME
 remove_image $FSW_IMAGE_NAME
 remove_image $HEISE_BPM_IMAGE_NAME
 remove_image $HEISE_FSW_IMAGE_NAME
-
-exit 0
 
 pushd ./EAP_Image
 docker build --rm -t $EAP_IMAGE_NAME .
