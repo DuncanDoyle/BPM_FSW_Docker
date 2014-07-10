@@ -3,35 +3,31 @@ FROM    centos:6.4
 
 MAINTAINER psteiner <psteiner@redhat.com>
 
-# Update the system
-# RUN yum -y update
+# Update the system and Install necessary RPMs
+RUN yum -y update && \ 
+ yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip openssh-server openssh-clients && \
+ yum clean all
 
-##########################################################
-# Install some missing stuff
-##########################################################
-RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip openssh-server openssh-clients; yum clean all
+# Make sure JAVA_HOME is set
 ENV JAVA_HOME /usr/lib/jvm/jre
 
+# Set root password
+RUN echo "root:redhat" | /usr/sbin/chpasswd
 
-############################################
 # Create user to run JBoss EAP
-############################################
 RUN useradd -m -d /home/jbosseap -p jbosseap jbosseap 
 
-############################################
 # Install JBoss EAP 6.1.1
-############################################
 USER jbosseap
 
 ENV HOME /home/jbosseap
-RUN mkdir $HOME/eap
-RUN mkdir $HOME/tmp
+RUN mkdir $HOME/eap && \
+ mkdir $HOME/tmp
    
 ADD . $HOME/tmp/
 
-RUN /usr/bin/unzip -q $HOME/tmp/jboss-eap-6.1.*.zip -d $HOME/eap
-
-RUN cp $HOME/tmp/mgmt-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration
+RUN /usr/bin/unzip -q $HOME/tmp/jboss-eap-6.1.*.zip -d $HOME/eap && \
+ cp $HOME/tmp/mgmt-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration
 
 CMD $HOME/eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
