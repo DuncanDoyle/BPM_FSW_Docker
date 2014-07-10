@@ -75,21 +75,26 @@ remove_image $HEISE_BPM_IMAGE_NAME
 remove_image $HEISE_FSW_IMAGE_NAME
 
 pushd ./EAP_Image
-docker build --rm -t $EAP_IMAGE_NAME .
+echo "Building $EAP_IMAGE_NAME"
+docker build -q --rm -t $EAP_IMAGE_NAME .
 popd
 
 pushd ./BPM_Image
-docker build --rm -t $BPM_IMAGE_NAME .
+echo "Building $BPM_IMAGE_NAME"
+docker build -q --rm -t $BPM_IMAGE_NAME .
 popd
 
 pushd ./FSW_Image
-docker build --rm -t $FSW_IMAGE_NAME .
+echo "Building $FSW_IMAGE_NAME"
+docker build -q --rm -t $FSW_IMAGE_NAME .
 popd
 
 pushd ./Heise_BPM_Image
-docker build --rm -t $HEISE_BPM_IMAGE_NAME .
+echo "Building $HEISE_BPM_IMAGE_NAME"
+docker build -q --rm -t $HEISE_BPM_IMAGE_NAME .
 popd
 
 pushd ./Heise_FSW_Image
-docker build --rm -t $HEISE_FSW_IMAGE_NAME .
+echo "Building $HEISE_FSW_IMAGE_NAME"
+docker build -q --rm -t $HEISE_FSW_IMAGE_NAME .
 popd
