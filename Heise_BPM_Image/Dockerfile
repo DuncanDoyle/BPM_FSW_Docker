@@ -28,7 +28,7 @@ USER root
 
 # Changing to directory $HOME so the .index directory is created in the correct place
 # TODO maybe configure uberfire correctly to configure the org.uberfire.metadata.index.dir property
-CMD service sshd start && su jbosseap -c "cd /home/jbosseap; ./eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"
+CMD su jbosseap -c "cd /home/jbosseap; ./eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"
 EXPOSE 22 8080 9990
 
 # Build command -> docker build --rm -t psteiner/heise_bpm .
