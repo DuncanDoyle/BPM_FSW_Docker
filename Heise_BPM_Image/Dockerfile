@@ -16,9 +16,10 @@ ADD . $HOME/tmp/
 ############################################
 # Copy artifacts to where they belong
 ############################################
-RUN mkdir /.niogit
-RUN cp -R $HOME/tmp/niogit/* /.niogit
-RUN cp $HOME/tmp/BiPRO-Komposit-JAXB2-1.0.0.jar $HOME/eap/jboss-eap-6.1/standalone/deployments/business-central.war/WEB-INF/lib/
+RUN mkdir $HOME/.niogit && \
+ cp -R $HOME/tmp/niogit/* $HOME/.niogit && \
+ cp $HOME/tmp/BiPRO-Komposit-JAXB2-1.0.0.jar $HOME/eap/jboss-eap-6.1/standalone/deployments/business-central.war/WEB-INF/lib/ && \
+ chown -R jbosseap:jbosseap $HOME
 
 ############################################
 # Define command to start image
