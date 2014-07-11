@@ -15,8 +15,8 @@ HEISE_FSW_IMAGE_NAME="psteiner/heise_fsw"
 EAP_ZIP="jboss-eap-6.1.1.zip"
 EAP_URL="http://www.jboss.org/download-manager/file/jboss-eap-6.1.1.zip"
 
-BPM_ZIP="jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x.zip"
-BPM_URL="https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=28913"
+BPM_ZIP="jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip"
+BPM_URL="https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=30853&product=bpm.suite"
 
 FSW_ZIP="jboss-fsw-installer-6.0.0.GA-redhat-4.jar"
 FSW_URL="http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip"

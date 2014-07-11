@@ -29,12 +29,12 @@ After successfully cloning this image with `git clone https://github.com/Patrick
 
 Please download the following Red Hat JBoss products:
 * [Red Hat JBoss EAP](http://www.jboss.org/download-manager/file/jboss-eap-6.1.0.GA.zip)
-* [Red Hat JBoss BPM-Suite](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=28913)
+* [Red Hat JBoss BPM-Suite](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=30853&product=bpm.suite)
 * [Red Hat JBoss FSW](http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip)
 
 Please copy the downloaded products as follows:
 * jboss-eap-6.1.0.GA.zip into the folder `EAP_Image`
-* jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x.zip into the folder `BPM_Image`
+* jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip into the folder `BPM_Image`
 * jboss-fsw-installer-6.0.0.GA-redhat-4.jar into the `FSW_Image`
 
 After the files are downloaded, run the `build_all.sh` script

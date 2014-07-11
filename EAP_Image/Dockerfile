@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM    centos:6.4
+FROM    centos:centos6
 
 MAINTAINER psteiner <psteiner@redhat.com>
 

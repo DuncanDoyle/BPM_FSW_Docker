@@ -19,7 +19,7 @@ Step-by-Step Instruction
 3. If your BPM Version is not V6.0.1, please change the following line in the cloned Dockerfile
 
    ```
-   RUN /usr/bin/unzip -qo $HOME/tmp/jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x.zip -d $HOME/eap
+   RUN /usr/bin/unzip -qo $HOME/tmp/jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip -d $HOME/eap
    ```
 4. Run the command to create the Docker image
 

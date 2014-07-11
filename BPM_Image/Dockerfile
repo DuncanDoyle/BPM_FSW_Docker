@@ -13,7 +13,7 @@ RUN yum -y update && yum clean all
 
 # Copy JBoss BPM-Suite
 ADD . $HOME/tmp/
-RUN /usr/bin/unzip -qo $HOME/tmp/jboss-bpms-6.0.1.GA-redhat-4-deployable-eap6.x.zip -d $HOME/eap
+RUN /usr/bin/unzip -qo $HOME/tmp/jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip -d $HOME/eap
 
 # Copy files to have some initial users
 RUN cp $HOME/tmp/application-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration && \
