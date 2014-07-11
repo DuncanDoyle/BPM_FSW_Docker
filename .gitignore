@@ -7,6 +7,9 @@
 *.jar
 *.war
 *.ear
+jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip
+jboss-bpms-6.1.0.redhat-0-deployable-eap6.x.zip
+jboss-eap-6.3.0.Beta.zip
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
