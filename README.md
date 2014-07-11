@@ -44,7 +44,7 @@ Please copy the downloaded products as follows:
 * jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip into the folder `BPM_Image`
 * jboss-fsw-installer-6.0.0.GA-redhat-4.jar into the `FSW_Image`
 
-After the files are downloaded, run the `build_all.sh` script
+After the files are downloaded, run `demo.sh build all` 
 
 If you prefer to see all this in a video, here we go:
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/9aKRDL1sWuM/0.jpg)](https://www.youtube.com/watch?v=9aKRDL1sWuM)
@@ -52,12 +52,14 @@ If you prefer to see all this in a video, here we go:
 Starting the images
 ===================
 
-As the two images depend on each other, via a Link, we need to run them in the right order. For this purpose you can simply run the `start.sh` script or run the images manually using:
+As the two images depend on each other, via a Link, we need to run them in the right order. For this purpose you can simply run `demo.sh start` which will run the demo in detached mode on fixed ports (49160) or you can run `demo.sh start attached` which will run the fsw image in detached mode and the bpms image in attached mode and remove the image after the jboss process is terminated. 
 
-   # the Fuse ServiceWorks image  with the command `docker run -p 49260:8080 -p 49270:9990 -h fsw --name fsw -d psteiner/heise_fsw`
-   # the BPM-Suite image  with the command `docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --name bpms -d psteiner/heise_bpm`
+Of course you can run the images manually using:
 
-Running the images
+# `docker run -p 49260:8080 -p 49270:9990 -h fsw --name fsw -d psteiner/heise_fsw` for the Fuse ServiceWorks Image
+# `docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --name bpms -d psteiner/heise_bpm` for the BPMS Image
+
+Running the demo
 ==================
 
 A first video on how to start and run the environment is here:
@@ -66,6 +68,7 @@ A first video on how to start and run the environment is here:
 
 Have fun and feel free to comment, come up with ideas for improvement, etc.
 
-Patrick
+Patrick and Buddy
 
 psteiner at redhat.com
+buddy at redhat.com
