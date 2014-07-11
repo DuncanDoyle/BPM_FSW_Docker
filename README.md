@@ -23,6 +23,13 @@ This image is made out of 2 layers
    1. Red Hat JBoss Fuse ServiceWorks ( image-name psteiner/fsw )
    2. WebService provider deployed into layer 1 ( image-name psteiner/heise_fsw )
 
+Postgres image
+--------------
+This image is not yet used for the demo, but in preparation for so!
+
+It will be used for the Business Activity Monitoring of the demo and
+probably later also for showcasing data virtualization.
+
 Creating the images
 ===================
 After successfully cloning this image with `git clone https://github.com/PatrickSteiner/BPM_FSW_Docker.git` you will have one directory per image.
