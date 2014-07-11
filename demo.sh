@@ -82,6 +82,14 @@ function build_image {
 
 }
 
+function stop_image {
+  IMAGE=$1
+  if [ $(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | wc -l) -gt 0 ]; then
+    echo "Stopping all Images matching ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]}"
+    docker stop $(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | awk '{ print $1; }')
+  fi
+}
+
 sanity_check "EAP"
 sanity_check "BPM"
 sanity_check "FSW"
@@ -175,6 +183,23 @@ build)
     *)
       echo "usage: ${NAME} build (bpm|fsw|eap|heise_bpm|heise_fsw|all)"
       exit 1
+    esac
+    ;;
+stop)
+  case "$2" in
+    heise_bpm)
+      stop_image "HEISE_BPM"
+      ;;
+    heise_fsw)
+      stop_image "HEISE_FSW"
+      ;;
+    all)
+      stop_image "HEISE_BPM"
+      stop_image "HEISE_FSW"
+      ;;
+    *)
+      stop_image "HEISE_BPM"
+      stop_image "HEISE_FSW"
     esac
     ;;
 status)

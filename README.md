@@ -22,6 +22,10 @@ The `demo.sh` script accepts the following parameters:
   - **heise\_bpm** - build the heise_bpm image which in turn requires the bpm image (see above), which in turn requires the eap image. 
   - **heise\_fsw** - build the heise_fsw image which in turn requires the fsw image (see above)
   - **all** - build all required images in one go
+- **stop** - the stop parameter tries to stop running images and accepts the following parameters  
+  - **heise\_bpm** - tries to only stop running heise_bpm images 
+  - **heise\_fsw** - tries to only stop running heise_fsw images
+  - **all** - tries to stop all images (default)
 - **start** - Creates and runs the fsw and bpms containers and names it accordingly. If an existing fsw container is present, but not running it is started. By default the containers are started in detached mode. If you want to see what is going on you need to add an additional _attached_ parameter.
   - **attached** - Starts the bpms container attached and removes it after you terminate the jboss process.
 - **remove** - removes images from the docker registry. Needed for rebuilding parts of the demo environment.
