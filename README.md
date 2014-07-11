@@ -1,15 +1,39 @@
-Docker Images
-============
+# Docker Images
 
 This is a set of Docker images which together form a Red Hat BPM-Suite and Red Hat Fuse ServiceWorks demo environment.
 I personally use this setup whenever I have to present these topics to some audience.
 
-About the images
-================
+# About the images
+
 The demo requires two Docker-Images (Heise_BPM_Image and Heise_FSW_Image). As you can probably guess Heise_BPM_Image hosts the Red Hat JBoss BPM-Suite and Heise_FSW_Image hosts Red Hat JBoss Fuse ServiceWorks. All required images are built automatically. During the built process the base images (EAP_Image, BPM_Image, and FSW_Image) are built as well. These are plain base Images which can be re-used for your custom demos as well.
 
-Heise BPM image
----------------
+## Control Script
+
+The `demo.sh` control script provides several actions from *building* the images to *running*, and *removing* the images. The following section describes how to use the `demo.sh script.
+
+### demo.sh usage
+
+The demo.sh script accepts the following parameters:
+
+- **build** - the build parameter triggers an image build and accepts the following parameters  
+  - **bpm** - build the bpm image
+  - **eap** - build the eap image
+  - **fsw** - build the fsw image
+  - **heise\_bpm** - build the heise_bpm image which in turn requires the bpm image (see above), which in turn requires the eap image. 
+  - **heise\_fsw** - build the heise_fsw image which in turn requires the fsw image (see above)
+  - **all** - build all required images in one go
+- **start** - Creates and runs the fsw and bpms containers and names it accordingly. If an existing fsw container is present, but not running it is started. By default the containers are started in detached mode. If you want to see what is going on you need to add an additional _attached_ parameter.
+  - **attached** - Starts the bpms container attached and removes it after you terminate the jboss process.
+- **remove** - removes images from the docker registry. Needed for rebuilding parts of the demo environment.
+  - **bpm** - remove the bpm image and all intermediary images
+  - **eap** - remove the eap image and all intermediary images
+  - **fsw** - remove the fsw image and all intermediary images
+  - **heise\_bpm** - remove the heise_bpm image and all intermediary images 
+  - **heise\_fsw** - remove the heise_fsw image and all intermediary images
+- **status** - runs `docker ps`. Can be used to see what instances are running and how the ports are mapped.
+
+
+## Heise BPM image
 This image is made out of 3 layers
 
    1. Red Hat JBoss EAP ( image-name psteiner/eap )
@@ -56,8 +80,8 @@ As the two images depend on each other, via a Link, we need to run them in the r
 
 Of course you can run the images manually using:
 
-# `docker run -p 49260:8080 -p 49270:9990 -h fsw --name fsw -d psteiner/heise_fsw` for the Fuse ServiceWorks Image
-# `docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --name bpms -d psteiner/heise_bpm` for the BPMS Image
+1. `docker run -p 49260:8080 -p 49270:9990 -h fsw --name fsw -d psteiner/heise_fsw` for the Fuse ServiceWorks Image
+2. `docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --name bpms -d psteiner/heise_bpm` for the BPMS Image
 
 Running the demo
 ==================
