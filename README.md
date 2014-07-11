@@ -13,7 +13,7 @@ The `demo.sh` control script provides several actions from *building* the images
 
 ### demo.sh usage
 
-The demo.sh script accepts the following parameters:
+The `demo.sh` script accepts the following parameters:
 
 - **build** - the build parameter triggers an image build and accepts the following parameters  
   - **bpm** - build the bpm image
