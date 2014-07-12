@@ -77,6 +77,22 @@ After the files are downloaded, run `demo.sh build all`
 If you prefer to see all this in a video, here we go:
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/9aKRDL1sWuM/0.jpg)](https://www.youtube.com/watch?v=9aKRDL1sWuM)
 
+Known issues
+============
+
+Starting an image
+-----------------
+ `2014/06/19 20:40:34 unable to remount sys readonly: unable to mount sys as readonly max retries reached`
+
+ This error can be cirumvented by editing `/etc/sysconfig/docker` and replacing 
+ ```
+ other_args="--exec-driver=lxc"
+ ```
+ with
+ ```
+ other_args="--exec-driver=lxc --selinux-enabled"
+ ```
+
 Starting the images
 ===================
 
