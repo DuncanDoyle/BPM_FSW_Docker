@@ -42,10 +42,10 @@ function remove_image {
   echo "Removing $IMAGE"
 
   # grab the image id hash
-  IMAGE_ID=$(docker images | grep $IMAGE | awk '{ print $3; }')
+  IMAGE_ID=$(docker images | grep -w $IMAGE | awk '{ print $3; }')
 
   # Only try removing the images if there is a pre-built image
-  if [ ! -z $IMAGE_ID ]; then
+  if [ ! -z "$IMAGE_ID" ]; then
 
   echo "found $IMAGE_ID"
 
