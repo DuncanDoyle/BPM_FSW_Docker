@@ -87,6 +87,12 @@ function stop_image {
   if [ $(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | wc -l) -gt 0 ]; then
     echo "Stopping all Images matching ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]}"
     docker stop $(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | awk '{ print $1; }')
+
+    if [ ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} == ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]} ]; then
+	echo "Removing ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}"
+	docker rm $(docker ps -a | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | awk '{ print $1; }')
+    fi 
+
   fi
 }
 
