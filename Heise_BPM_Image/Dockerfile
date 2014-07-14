@@ -19,6 +19,8 @@ ADD . $HOME/tmp/
 RUN mkdir $HOME/.niogit && \
  cp -R $HOME/tmp/niogit/* $HOME/.niogit && \
  cp $HOME/tmp/BiPRO-Komposit-JAXB2-1.0.0.jar $HOME/eap/jboss-eap-6.1/standalone/deployments/business-central.war/WEB-INF/lib/ && \
+ cp $HOME/tmp/standalone.xml $HOME/eap/jboss-eap-6.1/standalone/configuration  && \
+ cp $HOME/tmp/postgresql-8.4-703.jdbc4.jar $HOME/eap/jboss-eap-6.1/standalone/deployments  && \
  chown -R jbosseap:jbosseap $HOME
 
 ############################################

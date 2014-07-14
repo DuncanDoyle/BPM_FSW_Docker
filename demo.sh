@@ -22,6 +22,8 @@ DOCKER_IMAGE["FSW:IMAGE_NAME"]="psteiner/fsw"
 DOCKER_IMAGE["FSW:ZIP"]="jboss-fsw-installer-6.0.0.GA-redhat-4.jar"
 DOCKER_IMAGE["FSW:URL"]="http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip"
 
+DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]="psteiner/postgres"
+
 DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]="psteiner/heise_bpm"
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
 
@@ -69,6 +71,7 @@ function remove_all_images {
   remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["FSW:IMAGE_NAME"]}
+  remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
 }
@@ -145,6 +148,18 @@ start)
     fi
   fi
 
+  # If there is no postgres image running
+  if [ ! $( docker ps | grep postgres | wc -l ) -gt 0 ]; then 
+    # If there isn't a stopped image
+    if [ ! $( docker ps -a | grep postgres | wc -l ) -gt 0 ]; then
+      # Create a new FSW Container
+      docker run -P -h postgres --name postgres -d ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
+    else
+      # Start the existing container
+      docker start postgres
+    fi
+  fi
+
   case "$2" in
     attached)
       # Start the Image and link all exposed ports
@@ -153,7 +168,7 @@ start)
       ;;
     *)
       # By default we start the bpm in detached mode with fixed ports
-      docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
+      docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
     esac
     ;;
 build)
@@ -170,6 +185,10 @@ build)
       echo "Building EAP Image"
       build_image "EAP"
       ;;
+    postgres)
+      echo "Building Postgres Image"
+      build_image "POSTGRES"
+      ;;
     heise_bpm)
       echo "Building Heise_BPM Image"
       build_image "HEISE_BPM"
@@ -183,11 +202,12 @@ build)
       build_image "EAP"
       build_image "BPM"
       build_image "FSW"
+      build_image "POSTGRES"
       build_image "HEISE_BPM"
       build_image "HEISE_FSW"
       ;;
     *)
-      echo "usage: ${NAME} build (bpm|fsw|eap|heise_bpm|heise_fsw|all)"
+      echo "usage: ${NAME} build (bpm|fsw|eap|postgres|heise_bpm|heise_fsw|all)"
       exit 1
     esac
     ;;
