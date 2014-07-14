@@ -5,7 +5,7 @@ MAINTAINER psteiner <psteiner@redhat.com>
 
 # Update the system and Install necessary RPMs
 RUN yum -y update && \ 
- yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip openssh-server openssh-clients && \
+ yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel unzip openssh-server openssh-clients  && \
  yum clean all
 
 # Make sure JAVA_HOME is set
