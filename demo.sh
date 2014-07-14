@@ -118,6 +118,10 @@ remove)
       echo "Removing EAP Image(s)"
       remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
       ;;
+    postgres)
+      echo "Removing Postgres Image(s)"
+      remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
+      ;;
     heise_bpm)
       echo "Removing Heise_BPM Image(s)"
       remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
@@ -131,7 +135,7 @@ remove)
       remove_all_images
       ;;
     *)
-      echo "usage: ${NAME} remove (bpm|fsw|eap|heise_bpm|heise_fsw|all)"
+      echo "usage: ${NAME} remove (bpm|fsw|eap|postgres|heise_bpm|heise_fsw|all)"
       exit 1
     esac
     ;;
@@ -226,6 +230,7 @@ stop)
     *)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
+      stop_image "POSTGRES"
     esac
     ;;
 status)
