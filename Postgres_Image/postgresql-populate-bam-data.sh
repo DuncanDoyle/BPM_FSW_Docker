@@ -2,7 +2,7 @@
 
 service postgresql-9.3 start
 
-psql -d bamdb -U bam -f /home/jboss/images/postgresql-test.sql
+psql -d bamdb -U bam -f /home/postgres/postgresql-test.sql
 
 service postgresql-9.3 stop
 

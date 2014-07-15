@@ -9,7 +9,7 @@ for ((i=${#images[@]}-1; i>=0; i--)); do
 done
 
 
-images=(`docker images | grep none | cut -c40-52`)
+images=(`docker images | grep none | cut -c40-53`)
 for ((i=${#images[@]}-1; i>=0; i--)); do
   if [ ${#images[$i]} -eq 12 ]; then
     docker rmi ${images[$i]}

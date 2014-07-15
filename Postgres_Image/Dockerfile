@@ -20,23 +20,10 @@ RUN yum -y install http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redha
 RUN yum -y install postgresql93-server postgresql93-contrib sudo; yum clean all
 RUN service postgresql-9.3 initdb
 
-# PostgreSQL setup
-USER postgres
-
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible. 
-RUN echo "host    all         all         0.0.0.0/0               md5" >> $PGDATA/pg_hba.conf
-RUN echo "" >> $PGDATA/pg_hba.conf
-RUN echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
-RUN echo "" >> $PGDATA/postgresql.conf
-
-#############################################
-# Create database for BPM-Suite BAM usage
-#############################################
-RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \ 
-    $PGINST/bin/psql --command "ALTER USER postgres PASSWORD 'change12_me';" && \
-    $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
-    $PGINST/bin/psql --command "CREATE DATABASE bamdb OWNER bam;" 
+############################################
+# Copy artifacts needed for the Heise_Demo
+############################################
+ADD . $HOME
 
 ############################################
 # lets give the user postgres a HOME-DIR
@@ -44,23 +31,38 @@ RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \
 USER root
 RUN usermod -d $HOME postgres
 
-############################################
-# Copy artifacts needed for the Heise_Demo
-############################################
-ADD . $HOME
+#############################################
+# Create database for BPM-Suite BAM usage
+#############################################
+USER postgres
+
+RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \ 
+    $PGINST/bin/psql --command "ALTER USER postgres PASSWORD 'change12_me';" && \
+    $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
+    $PGINST/bin/psql --command "CREATE DATABASE bamdb OWNER bam;" 
+
 
 ############################################
 # Copy artifacts to where they belong
 ############################################
-RUN mv $HOME/pgpass /.pgpass && \
-    chmod 0600 /.pgpass && \
-    chmod +x $HOME/postgresql-populate-bam-data.sh
+USER root
+
+RUN mv $HOME/pgpass /root/.pgpass && \
+    chmod 0600 /root/.pgpass && \
+    chmod +x $HOME/postgresql-populate-bam-data.sh  && \
+    mv $HOME/pg_hba.conf $PGDATA  && \
+    chmod +r $PGDATA/pg_hba.conf
+
+# Adjust PostgreSQL configuration so that remote connections to the
+# database are possible. 
+RUN echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
+RUN echo "" >> $PGDATA/postgresql.conf
 
 EXPOSE 5432
 
 # USER postgres
 
-#CMD ["/usr/pgsql-9.3/bin/postgres", "-D", "/var/lib/pgsql/9.3/data", "-c", "config_file=/var/lib/pgsql/9.3/data/postgresql.conf"]
+USER root
 
 CMD $HOME/postgresql-populate-bam-data.sh
 

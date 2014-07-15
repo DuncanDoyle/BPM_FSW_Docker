@@ -24,5 +24,3 @@ INSERT INTO "bam.hausrat_neugeschaeft" VALUES ('0000000011', 30+ROUND(RANDOM()*1
 INSERT INTO "bam.hausrat_neugeschaeft" VALUES ('0000000012', 30+ROUND(RANDOM()*100), 'Standard', 'Internet', 50+ROUND(RANDOM()*100)*2.0*RANDOM()*100 , 'Abgeschlossen', CURRENT_DATE - INTEGER '1', 'mfh');
 
 
-
-SELECT * FROM "bam.hausrat_neugeschaeft";
