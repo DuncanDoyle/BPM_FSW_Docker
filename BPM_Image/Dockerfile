@@ -19,6 +19,9 @@ RUN /usr/bin/unzip -qo $HOME/tmp/jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.
 RUN cp $HOME/tmp/application-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration && \
  cp $HOME/tmp/application-roles.properties $HOME/eap/jboss-eap-6.1/standalone/configuration
 
+# Clean up
+RUN rm $HOME/tmp/*
+
 # Define command to start image
 CMD $HOME/eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 

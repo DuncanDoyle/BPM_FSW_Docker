@@ -32,6 +32,8 @@ USER jbosseap
 RUN java -jar $HOME/tmp/jboss-fsw-installer-6.0.0.GA-redhat-4.jar $HOME/tmp/config.xml -variablefile $HOME/tmp/config.xml.variables && \
  cp $HOME/tmp/mgmt-users.properties $HOME/fsw/jboss-eap-6.1/standalone/configuration
 
+#Clean up
+RUN rm $HOME/tmp/*
 
 CMD $HOME/fsw/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
