@@ -13,6 +13,8 @@ ADD . $HOME/tmp/
 
 RUN java -jar $HOME/tmp/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar $HOME/tmp/InstallConfigRecord.xml 
 
+RUN rm $HOME/tmp/*
+
 CMD $HOME/jbdevstudio/jbdevstudio-unity
 
 # Build command -> docker build --rm -t wrichter/jbds .
