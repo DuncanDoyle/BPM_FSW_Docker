@@ -29,6 +29,9 @@ ADD . $HOME/tmp/
 RUN /usr/bin/unzip -q $HOME/tmp/jboss-eap-6.1.*.zip -d $HOME/eap && \
  cp $HOME/tmp/mgmt-users.properties $HOME/eap/jboss-eap-6.1/standalone/configuration
 
+#Clean Up
+RUN rm $HOME/tmp/*
+
 CMD $HOME/eap/jboss-eap-6.1/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
 EXPOSE 8080 9990
