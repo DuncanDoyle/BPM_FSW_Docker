@@ -25,6 +25,9 @@ DOCKER_IMAGE["FSW:URL"]="http://www.jboss.org/download-manager/file/jboss-fsw-6.
 DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]="psteiner/postgres"
 
 DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]="psteiner/heise_bpm"
+DOCKER_IMAGE["HEISE_BPM:ZIP"]="postgresql-8.4-703.jdbc4.jar"
+DOCKER_IMAGE["HEISE_BPM:URL"]="http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar"
+
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
 
 function sanity_check {
@@ -102,6 +105,7 @@ function stop_image {
 sanity_check "EAP"
 sanity_check "BPM"
 sanity_check "FSW"
+sanity_check "HEISE_BPM"
 
 case "$1" in
 remove)
