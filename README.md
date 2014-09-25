@@ -69,7 +69,7 @@ Please download the following Red Hat JBoss products:
 
 Please copy the downloaded products as follows:
 * jboss-eap-6.1.0.GA.zip into the folder `EAP_Image`
-* jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip into the folder `BPM_Image`
+* jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip into the folder `BPM_Image`
 * jboss-fsw-installer-6.0.0.GA-redhat-4.jar into the `FSW_Image`
 
 After the files are downloaded, run `demo.sh build all` 

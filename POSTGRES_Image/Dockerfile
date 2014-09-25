@@ -37,9 +37,9 @@ RUN usermod -d $HOME postgres
 USER postgres
 
 RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \ 
-    $PGINST/bin/psql --command "ALTER USER postgres PASSWORD 'change12_me';" && \
-    $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
-    $PGINST/bin/psql --command "CREATE DATABASE bamdb OWNER bam;" 
+   $PGINST/bin/psql --command "ALTER USER postgres PASSWORD 'change12_me';" && \
+   $PGINST/bin/psql --command "CREATE USER bam PASSWORD 'change12_me';" && \
+   $PGINST/bin/psql --command "CREATE DATABASE bamdb OWNER bam;" 
 
 
 ############################################
@@ -48,10 +48,10 @@ RUN $PGINST/bin/pg_ctl start -w -D $PGDATA && \
 USER root
 
 RUN mv $HOME/pgpass /root/.pgpass && \
-    chmod 0600 /root/.pgpass && \
-    chmod +x $HOME/postgresql-populate-bam-data.sh  && \
-    mv $HOME/pg_hba.conf $PGDATA  && \
-    chmod +r $PGDATA/pg_hba.conf
+   chmod 0600 /root/.pgpass && \
+   chmod +x $HOME/postgresql-populate-bam-data.sh  && \
+   mv $HOME/pg_hba.conf $PGDATA  && \
+   chmod +r $PGDATA/pg_hba.conf
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
@@ -59,8 +59,6 @@ RUN echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
 RUN echo "" >> $PGDATA/postgresql.conf
 
 EXPOSE 5432
-
-# USER postgres
 
 USER root
 

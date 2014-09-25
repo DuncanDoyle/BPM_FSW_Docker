@@ -15,7 +15,7 @@ DOCKER_IMAGE["EAP:ZIP"]="jboss-eap-6.1.1.zip"
 DOCKER_IMAGE["EAP:URL"]="http://www.jboss.org/download-manager/file/jboss-eap-6.1.1.zip"
 
 DOCKER_IMAGE["BPM:IMAGE_NAME"]="psteiner/bpm"
-DOCKER_IMAGE["BPM:ZIP"]="jboss-bpms-6.0.2.GA-redhat-5-deployable-eap6.x.zip"
+DOCKER_IMAGE["BPM:ZIP"]="jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip"
 DOCKER_IMAGE["BPM:URL"]="https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=30853&product=bpm.suite"
 
 DOCKER_IMAGE["FSW:IMAGE_NAME"]="psteiner/fsw"
