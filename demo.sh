@@ -22,6 +22,10 @@ DOCKER_IMAGE["FSW:IMAGE_NAME"]="psteiner/fsw"
 DOCKER_IMAGE["FSW:ZIP"]="jboss-fsw-installer-6.0.0.GA-redhat-4.jar"
 DOCKER_IMAGE["FSW:URL"]="http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip"
 
+DOCKER_IMAGE["DV:IMAGE_NAME"]="psteiner/datavirt"
+DOCKER_IMAGE["DV:ZIP"]="software/jboss-dv-installer-6.0.0.GA-redhat-4.jar"
+DOCKER_IMAGE["DV:URL"]="http://www.jboss.org/download-manager/file/jboss-dv-installer-6.0.0.GA-redhat-4.jar"
+
 DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]="psteiner/postgres"
 
 DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]="psteiner/heise_bpm"
@@ -29,6 +33,9 @@ DOCKER_IMAGE["HEISE_BPM:ZIP"]="postgresql-8.4-703.jdbc4.jar"
 DOCKER_IMAGE["HEISE_BPM:URL"]="http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar"
 
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
+
+DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]="psteiner/heise_datavirt"
+
 
 function sanity_check {
   IMAGE=$1
@@ -74,9 +81,11 @@ function remove_all_images {
   remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["FSW:IMAGE_NAME"]}
+  remove_image ${DOCKER_IMAGE["DV:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
+  remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
 }
 
 function build_image {
@@ -123,6 +132,7 @@ function stop_image {
 sanity_check "EAP"
 sanity_check "BPM"
 sanity_check "FSW"
+sanity_check "DV"
 sanity_check "HEISE_BPM"
 
 case "$1" in
@@ -140,6 +150,10 @@ remove)
       echo "Removing EAP Image(s)"
       remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
       ;;
+    dv)
+      echo "Removing DV Image(s)"
+      remove_image ${DOCKER_IMAGE["DV:IMAGE_NAME"]}
+      ;;
     postgres)
       echo "Removing Postgres Image(s)"
       remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
@@ -152,12 +166,16 @@ remove)
       echo "Removing Heise_FSW Image(s)"
       remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
       ;;
+    heise_dv)
+      echo "Removing Heise_DV Image(s)"
+      remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
+      ;;
     all)
       echo "Removing All Images"
       remove_all_images
       ;;
     *)
-      echo "usage: ${NAME} remove (bpm|fsw|eap|postgres|heise_bpm|heise_fsw|all)"
+      echo "usage: ${NAME} remove (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|heise_dv|all)"
       exit 1
     esac
     ;;
@@ -195,6 +213,7 @@ start)
     *)
       # By default we start the bpm in detached mode with fixed ports
       docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
+      docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
     esac
     ;;
 connect)
@@ -207,8 +226,12 @@ connect)
       echo "Connecting into running Heise_FSW container"
       connect_image "HEISE_FSW"
       ;;
+    heise_dv)
+      echo "Connecting into running Heise_DV container"
+      connect_image "HEISE_DV"
+      ;;
     *)
-      echo "usage: ${NAME} connect (heise_bpm|heise_fsw)"
+      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv)"
       exit 1
   esac
   ;;
@@ -238,17 +261,23 @@ build)
       echo "Building Heise_FSW Image"
       build_image "HEISE_FSW"
       ;;
+    heise_dv)
+      echo "Building Heise_DV Image"
+      build_image "HEISE_DV"
+      ;;
     all)
       echo "Building All Images"
       build_image "EAP"
       build_image "BPM"
       build_image "FSW"
+      build_image "DV"
       build_image "POSTGRES"
       build_image "HEISE_BPM"
       build_image "HEISE_FSW"
+      build_image "HEISE_DV"
       ;;
     *)
-      echo "usage: ${NAME} build (bpm|fsw|eap|postgres|heise_bpm|heise_fsw|all)"
+      echo "usage: ${NAME} build (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|heise_dv|all)"
       exit 1
     esac
     ;;
@@ -260,15 +289,20 @@ stop)
     heise_fsw)
       stop_image "HEISE_FSW"
       ;;
+    heise_dv)
+      stop_image "HEISE_DV"
+      ;;
     all)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
+      stop_image "HEISE_DV"
       stop_image "POSTGRES"
       ./cleanup.sh
       ;;
     *)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
+      stop_image "HEISE_DV"
       stop_image "POSTGRES"
       ./cleanup.sh
     esac
