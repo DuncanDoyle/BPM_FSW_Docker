@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>dashboard-import</artifactId>
+  <groupId>com.redhat.demo.HeiseDemo</groupId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Heise Demo :: BAM Dashboard Importer</name>
+  <build>
+    <finalName>heisedemo-dashboard</finalName>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.dashboard-builder</groupId>
+      <artifactId>dashboard-commons</artifactId>
+      <version>6.0.2-redhat-6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.dashboard-builder</groupId>
+      <artifactId>dashboard-displayer-core</artifactId>
+      <version>6.0.2-redhat-6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.dashboard-builder</groupId>
+      <artifactId>dashboard-ui-core</artifactId>
+      <version>6.0.2-redhat-6</version>
+      <classifier>classes</classifier>
+    </dependency>
+  </dependencies>
+</project>

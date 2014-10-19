@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceExport>
+  <workspace envelopeId="Default_Envelope" friendlyUrl="heisedemo" skinId="Default_Skin" homeMode="0" id="0">
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.WorkspacePermission" readonly="true" principal="role-admin" actions="login,admin,createPage,edit,delete,edit perm,admin providers"/>
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.WorkspacePermission" readonly="true" principal="role-manager" actions="login,admin,createPage,edit,delete,edit perm,admin providers"/>
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.PanelPermission" readonly="true" principal="role-admin" actions="view,edit,edit perm"/>
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.PanelPermission" readonly="true" principal="role-manager" actions="view,edit,edit perm"/>
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.SectionPermission" readonly="true" principal="role-admin" actions="view,edit,delete,edit perm"/>
+    <permission principalClass="org.jboss.dashboard.security.principals.RolePrincipal" permissionClass="org.jboss.dashboard.security.SectionPermission" readonly="true" principal="role-manager" actions="view,edit,delete,edit perm"/>
+    <param name="title" value="Heise Demo" lang="en"/>
+    <param name="name" value="Heise Demo" lang="en"/>
+    <panelInstance serialization="" provider="navigation.tree_menu" id="3776">
+      <param name="title" value="Tree menu" lang="de"/>
+      <param name="title" value="Tree menu" lang="en"/>
+      <param name="title" value="Menú en árbol" lang="es"/>
+      <param name="title" value="Tree menu" lang="fr"/>
+      <param name="title" value="Tree menu" lang="ja"/>
+      <param name="title" value="Tree menu" lang="pt"/>
+      <param name="title" value="Tree menu" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="rO0ABXQD4TxkYXNoYm9hcmRfZmlsdGVyPgogIDxwcm9wZXJ0eSBpZD0idGFyaWYiIHByb3ZpZGVyQ29kZSA9ImRhdGFwcm92aWRlcl8zMDIwMTM5NDEwMzUyODQwMyI+CiAgICA8dmlzaWJsZT50cnVlPC92aXNpYmxlPgogIDwvcHJvcGVydHk+CiAgPHByb3BlcnR5IGlkPSJ2ZXJ0cmllYnNrYW5hbCIgcHJvdmlkZXJDb2RlID0iZGF0YXByb3ZpZGVyXzMwMjAxMzk0MTAzNTI4NDAzIj4KICAgIDx2aXNpYmxlPnRydWU8L3Zpc2libGU+CiAgPC9wcm9wZXJ0eT4KICA8cHJvcGVydHkgaWQ9InN0YXRlIiBwcm92aWRlckNvZGUgPSJkYXRhcHJvdmlkZXJfMzAyMDEzOTQxMDM1Mjg0MDMiPgogICAgPHZpc2libGU+dHJ1ZTwvdmlzaWJsZT4KICA8L3Byb3BlcnR5PgogIDxwcm9wZXJ0eSBpZD0iZGF0dW0iIHByb3ZpZGVyQ29kZSA9ImRhdGFwcm92aWRlcl8zMDIwMTM5NDEwMzUyODQwMyI+CiAgICA8dmlzaWJsZT50cnVlPC92aXNpYmxlPgogIDwvcHJvcGVydHk+CiAgPHByb3BlcnR5IGlkPSJoYXVzdHlwIiBwcm92aWRlckNvZGUgPSJkYXRhcHJvdmlkZXJfMzAyMDEzOTQxMDM1Mjg0MDMiPgogICAgPHZpc2libGU+dHJ1ZTwvdmlzaWJsZT4KICA8L3Byb3BlcnR5PgogIDxvcHRpb25zPgogICAgPHNob3J0Vmlld01vZGU+dHJ1ZTwvc2hvcnRWaWV3TW9kZT4KICAgIDxzaG93TGVnZW5kPnRydWU8L3Nob3dMZWdlbmQ+CiAgICA8c2hvd1JlZnJlc2hCdXR0b24+dHJ1ZTwvc2hvd1JlZnJlc2hCdXR0b24+CiAgICA8c2hvd0FwcGx5aEJ1dHRvbj50cnVlPC9zaG93QXBwbHloQnV0dG9uPgogICAgPHNob3dDbGVhckJ1dHRvbj50cnVlPC9zaG93Q2xlYXJCdXR0b24+CiAgICA8c2hvd1Byb3BlcnR5TmFtZXM+dHJ1ZTwvc2hvd1Byb3BlcnR5TmFtZXM+CiAgICA8c2hvd1N1Ym1pdE9uQ2hhbmdlPnRydWU8L3Nob3dTdWJtaXRPbkNoYW5nZT4KICA8c2hvd0F1dG9SZWZyZXNoPmZhbHNlPC9zaG93QXV0b1JlZnJlc2g+CiAgPC9vcHRpb25zPgo8L2Rhc2hib2FyZF9maWx0ZXI+Cg==" provider="dashboard.filter" id="3785">
+      <param name="title" value="Filter &amp; Drill-down" lang="de"/>
+      <param name="title" value="Filter" lang="en"/>
+      <param name="title" value="Filtro y Drill-down" lang="es"/>
+      <param name="title" value="Filter &amp; Drill-down" lang="fr"/>
+      <param name="title" value="Filter &amp; Drill-down" lang="ja"/>
+      <param name="title" value="Filter &amp; Drill-down" lang="pt"/>
+      <param name="title" value="Filter &amp; Drill-down" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3794">
+      <param name="kpicode" value="kpi_38051394103583003" lang=" "/>
+      <param name="title" value="Transaction by status" lang="en"/>
+      <param name="title" value="Geschäftsvorfälle nach Status" lang="de"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3807">
+      <param name="kpicode" value="kpi_38161394104085425" lang=" "/>
+      <param name="title" value="Sum of contribution by tariff" lang="en"/>
+      <param name="title" value="Beitragssummen nach Tarif" lang="de"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3818">
+      <param name="kpicode" value="kpi_38271394112215273" lang=" "/>
+      <param name="title" value="Transaction by time" lang="en"/>
+      <param name="title" value="Geschäftsvorfälle nach Zeit" lang="de"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3829">
+      <param name="kpicode" value="kpi_38381394112418028" lang=" "/>
+      <param name="title" value="Sum of contribution by time" lang="en"/>
+      <param name="title" value="Beitragsvolumina nach Zeit" lang="de"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3840">
+      <param name="title" value="Key Performance Indicator" lang="de"/>
+      <param name="title" value="Key Performance Indicator" lang="en"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3849">
+      <param name="title" value="Key Performance Indicator" lang="de"/>
+      <param name="title" value="Key Performance Indicator" lang="en"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <panelInstance serialization="" provider="dashboard.kpi" id="3862">
+      <param name="kpicode" value="kpi_38711396366160966" lang=" "/>
+      <param name="title" value="Key Performance Indicator" lang="de"/>
+      <param name="title" value="- New indicator -" lang="en"/>
+      <param name="title" value="Indicador clave de rendimiento" lang="es"/>
+      <param name="title" value="Key Performance Indicator" lang="fr"/>
+      <param name="title" value="Key Performance Indicator" lang="ja"/>
+      <param name="title" value="Key Performance Indicator" lang="pt"/>
+      <param name="title" value="Key Performance Indicator" lang="zh"/>
+    </panelInstance>
+    <section panelSpacing="2" position="0" idTemplate="Default_Layout" idEnvelope="" regionSpacing="2" idSkin="" visible="true" id="3775">
+      <param name="title" value="Neugeschäft Hausrat" lang="en"/>
+      <panel position="0" instanceId="3794" regionId="center_2" id="3802"/>
+      <panel position="1" instanceId="3807" regionId="center_2" id="3815"/>
+      <panel position="0" instanceId="3829" regionId="col2_1" id="3837"/>
+      <panel position="0" instanceId="3818" regionId="col2_2" id="3826"/>
+      <panel position="0" instanceId="3776" regionId="left_top" id="3784"/>
+      <panel position="1" instanceId="3785" regionId="left_top" id="4039"/>
+    </section>
+  </workspace>
+</workspaceExport>

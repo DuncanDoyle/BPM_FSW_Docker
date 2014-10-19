@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kpis>
+  <dataprovider code="dataprovider_30201394103528403" type="sql">
+    <description language="en">Neugeschaeft Hausrat</description>
+    <sqlprovider>
+      <datasource>Neugeschaeft Hausrat</datasource>
+      <query type="default">SELECT * FROM &quot;bam.hausrat_neugeschaeft&quot;</query>
+      <query type="postgres">SELECT * FROM &quot;bam.hausrat_neugeschaeft&quot; order by Datum desc</query>
+    </sqlprovider>
+    <dataproperties>
+      <dataproperty id="pid">
+        <domain>org.jboss.dashboard.domain.label.LabelDomain</domain>
+        <name language="fr">pid</name>
+        <name language="zh">pid</name>
+        <name language="ja">pid</name>
+        <name language="en">PID</name>
+        <name language="es">pid</name>
+        <name language="de">pid</name>
+        <name language="pt">pid</name>
+      </dataproperty>
+      <dataproperty id="beitrag">
+        <domain>org.jboss.dashboard.domain.numeric.NumericDomain</domain>
+        <name language="fr">beitrag</name>
+        <name language="zh">beitrag</name>
+        <name language="ja">beitrag</name>
+        <name language="en">Contribution</name>
+        <name language="es">beitrag</name>
+        <name language="de">Beitrag</name>
+        <name language="pt">beitrag</name>
+      </dataproperty>
+      <dataproperty id="tarif">
+        <domain>org.jboss.dashboard.domain.label.LabelDomain</domain>
+        <name language="fr">tarif</name>
+        <name language="zh">tarif</name>
+        <name language="ja">tarif</name>
+        <name language="en">Tariff</name>
+        <name language="es">tarif</name>
+        <name language="de">Tarif</name>
+        <name language="pt">tarif</name>
+      </dataproperty>
+      <dataproperty id="vertriebskanal">
+        <domain>org.jboss.dashboard.domain.label.LabelDomain</domain>
+        <name language="fr">vertriebskanal</name>
+        <name language="zh">vertriebskanal</name>
+        <name language="ja">vertriebskanal</name>
+        <name language="en">Sales-Channel</name>
+        <name language="es">vertriebskanal</name>
+        <name language="de">vertriebskanal</name>
+        <name language="pt">vertriebskanal</name>
+      </dataproperty>
+      <dataproperty id="qm">
+        <domain>org.jboss.dashboard.domain.numeric.NumericDomain</domain>
+        <name language="fr">qm</name>
+        <name language="zh">qm</name>
+        <name language="ja">qm</name>
+        <name language="de">Objektgr&#246;&#223;e</name>
+        <name language="es">qm</name>
+        <name language="en">Size of Object</name>
+        <name language="pt">qm</name>
+      </dataproperty>
+      <dataproperty id="state">
+        <domain>org.jboss.dashboard.domain.label.LabelDomain</domain>
+        <name language="fr">state</name>
+        <name language="zh">state</name>
+        <name language="ja">state</name>
+        <name language="en">State</name>
+        <name language="es">state</name>
+        <name language="de">Status</name>
+        <name language="pt">state</name>
+      </dataproperty>
+      <dataproperty id="datum">
+        <domain>org.jboss.dashboard.domain.date.DateDomain</domain>
+        <name language="fr">datum</name>
+        <name language="zh">datum</name>
+        <name language="ja">datum</name>
+        <name language="en">Date</name>
+        <name language="es">datum</name>
+        <name language="de">Datum</name>
+        <name language="pt">datum</name>
+      </dataproperty>
+      <dataproperty id="haustyp">
+        <domain>org.jboss.dashboard.domain.label.LabelDomain</domain>
+        <name language="fr">haustyp</name>
+        <name language="zh">haustyp</name>
+        <name language="ja">haustyp</name>
+        <name language="en">Type of Object</name>
+        <name language="es">haustyp</name>
+        <name language="de">Haustyp</name>
+        <name language="pt">haustyp</name>
+      </dataproperty>
+    </dataproperties>
+  </dataprovider>
+  <kpi code="kpi_38161394104085425">
+    <description language="de">- Neue Kennziffer -</description>
+    <description language="zh">- &#26032;&#24314;&#25351;&#26631; -</description>
+    <description language="pt">- Novo indicador -</description>
+    <description language="fr">- Nouvel indicateur -</description>
+    <description language="en">Beitragssummen nach Tarif</description>
+    <description language="es">- Nuevo indicador - </description>
+    <description language="ja">- &#26032;&#12375;&#12356;&#25351;&#27161; -</description>
+    <provider code="dataprovider_30201394103528403" />
+    <displayer type="barchart" renderer="nvd3">
+      <domain>
+        <propertyid>tarif</propertyid>
+        <name language="fr">tarif</name>
+        <name language="zh">tarif</name>
+        <name language="ja">tarif</name>
+        <name language="en">Tariff</name>
+        <name language="es">tarif</name>
+        <name language="de">Tarif</name>
+        <name language="pt">tarif</name>
+        <maxnumberofintervals>10</maxnumberofintervals>
+      </domain>
+      <range>
+        <propertyid>beitrag</propertyid>
+        <name language="fr">beitrag</name>
+        <name language="zh">beitrag</name>
+        <name language="ja">beitrag</name>
+        <name language="en">Contribution</name>
+        <name language="es">beitrag</name>
+        <name language="de">Beitrag</name>
+        <name language="pt">beitrag</name>
+        <scalarfunction>sum</scalarfunction>
+        <unit language="en">{value} EUR</unit>
+      </range>
+      <type></type>
+      <showlabelsxaxis>true</showlabelsxaxis>
+      <labelanglexaxis>-45</labelanglexaxis>
+      <showlinesarea>false</showlinesarea>
+      <color>#FFFFFF</color>
+      <backgroundcolor>#FFFFFF</backgroundcolor>
+      <width>600</width>
+      <height>300</height>
+      <showlegend>false</showlegend>
+      <axisinteger>false</axisinteger>
+      <legendanchor>south</legendanchor>
+      <showtitle>true</showtitle>
+      <align>center</align>
+      <marginleft>80</marginleft>
+      <marginright>30</marginright>
+      <margintop>30</margintop>
+      <marginbottom>100</marginbottom>
+    </displayer>
+  </kpi>
+  <kpi code="kpi_38381394112418028">
+    <description language="de">- Neue Kennziffer -</description>
+    <description language="zh">- &#26032;&#24314;&#25351;&#26631; -</description>
+    <description language="pt">- Novo indicador -</description>
+    <description language="fr">- Nouvel indicateur -</description>
+    <description language="en">Beitragsvolumina nach Zeit</description>
+    <description language="es">- Nuevo indicador - </description>
+    <description language="ja">- &#26032;&#12375;&#12356;&#25351;&#27161; -</description>
+    <provider code="dataprovider_30201394103528403" />
+    <displayer type="barchart" renderer="nvd3">
+      <domain>
+        <propertyid>datum</propertyid>
+        <name language="fr">datum</name>
+        <name language="zh">datum</name>
+        <name language="ja">datum</name>
+        <name language="en">Date</name>
+        <name language="es">datum</name>
+        <name language="de">Datum</name>
+        <name language="pt">datum</name>
+        <maxnumberofintervals>15</maxnumberofintervals>
+        <taminterval>3</taminterval>
+      </domain>
+      <range>
+        <propertyid>beitrag</propertyid>
+        <name language="fr">beitrag</name>
+        <name language="zh">beitrag</name>
+        <name language="ja">beitrag</name>
+        <name language="en">Contribution</name>
+        <name language="es">beitrag</name>
+        <name language="de">Beitrag</name>
+        <name language="pt">beitrag</name>
+        <scalarfunction>sum</scalarfunction>
+        <unit language="en">{value}</unit>
+      </range>
+      <type></type>
+      <intervalsortcriteria>0</intervalsortcriteria>
+      <intervalsortorder>-1</intervalsortorder>
+      <showlabelsxaxis>true</showlabelsxaxis>
+      <labelanglexaxis>-45</labelanglexaxis>
+      <showlinesarea>false</showlinesarea>
+      <color>#FFFFFF</color>
+      <backgroundcolor>#FFFFFF</backgroundcolor>
+      <width>600</width>
+      <height>300</height>
+      <showlegend>false</showlegend>
+      <axisinteger>false</axisinteger>
+      <legendanchor>south</legendanchor>
+      <showtitle>true</showtitle>
+      <align>center</align>
+      <marginleft>80</marginleft>
+      <marginright>30</marginright>
+      <margintop>30</margintop>
+      <marginbottom>100</marginbottom>
+    </displayer>
+  </kpi>
+  <kpi code="kpi_38051394103583003">
+    <description language="de">- Neue Kennziffer -</description>
+    <description language="zh">- &#26032;&#24314;&#25351;&#26631; -</description>
+    <description language="pt">- Novo indicador -</description>
+    <description language="fr">- Nouvel indicateur -</description>
+    <description language="en">Gesch&#228;ftsvorf&#228;lle nach Status</description>
+    <description language="es">- Nuevo indicador - </description>
+    <description language="ja">- &#26032;&#12375;&#12356;&#25351;&#27161; -</description>
+    <provider code="dataprovider_30201394103528403" />
+    <displayer type="piechart" renderer="nvd3">
+      <domain>
+        <propertyid>state</propertyid>
+        <name language="fr">state</name>
+        <name language="zh">state</name>
+        <name language="ja">state</name>
+        <name language="en">State</name>
+        <name language="es">state</name>
+        <name language="de">Status</name>
+        <name language="pt">state</name>
+        <maxnumberofintervals>10</maxnumberofintervals>
+      </domain>
+      <range>
+        <propertyid>pid</propertyid>
+        <name language="fr">pid</name>
+        <name language="zh">pid</name>
+        <name language="ja">pid</name>
+        <name language="en">PID</name>
+        <name language="es">pid</name>
+        <name language="de">pid</name>
+        <name language="pt">pid</name>
+        <scalarfunction>count</scalarfunction>
+      </range>
+      <type></type>
+      <showlabelsxaxis>true</showlabelsxaxis>
+      <color>#FFFFFF</color>
+      <backgroundcolor>#FFFFFF</backgroundcolor>
+      <width>600</width>
+      <height>300</height>
+      <showlegend>false</showlegend>
+      <axisinteger>true</axisinteger>
+      <legendanchor>south</legendanchor>
+      <showtitle>true</showtitle>
+      <align>center</align>
+      <marginleft>80</marginleft>
+      <marginright>30</marginright>
+      <margintop>30</margintop>
+      <marginbottom>100</marginbottom>
+    </displayer>
+  </kpi>
+  <kpi code="kpi_38271394112215273">
+    <description language="de">- Neue Kennziffer -</description>
+    <description language="zh">- &#26032;&#24314;&#25351;&#26631; -</description>
+    <description language="pt">- Novo indicador -</description>
+    <description language="fr">- Nouvel indicateur -</description>
+    <description language="en">Gesch&#228;ftsvorf&#228;lle nach Zeit</description>
+    <description language="es">- Nuevo indicador - </description>
+    <description language="ja">- &#26032;&#12375;&#12356;&#25351;&#27161; -</description>
+    <provider code="dataprovider_30201394103528403" />
+    <displayer type="linechart" renderer="nvd3">
+      <domain>
+        <propertyid>datum</propertyid>
+        <name language="fr">datum</name>
+        <name language="zh">datum</name>
+        <name language="ja">datum</name>
+        <name language="en">Date</name>
+        <name language="es">datum</name>
+        <name language="de">Datum</name>
+        <name language="pt">datum</name>
+        <maxnumberofintervals>15</maxnumberofintervals>
+        <taminterval>3</taminterval>
+      </domain>
+      <range>
+        <propertyid>pid</propertyid>
+        <name language="fr">pid</name>
+        <name language="zh">pid</name>
+        <name language="ja">pid</name>
+        <name language="en">Count</name>
+        <name language="es">pid</name>
+        <name language="de">Anzahl</name>
+        <name language="pt">pid</name>
+        <scalarfunction>count</scalarfunction>
+        <unit language="en">{value}</unit>
+      </range>
+      <type></type>
+      <showlabelsxaxis>true</showlabelsxaxis>
+      <labelanglexaxis>-45</labelanglexaxis>
+      <showlinesarea>false</showlinesarea>
+      <color>#FFFFFF</color>
+      <backgroundcolor>#FFFFFF</backgroundcolor>
+      <width>600</width>
+      <height>300</height>
+      <showlegend>false</showlegend>
+      <axisinteger>true</axisinteger>
+      <legendanchor>south</legendanchor>
+      <showtitle>true</showtitle>
+      <align>center</align>
+      <marginleft>80</marginleft>
+      <marginright>30</marginright>
+      <margintop>30</margintop>
+      <marginbottom>100</marginbottom>
+    </displayer>
+  </kpi>
+</kpis>
