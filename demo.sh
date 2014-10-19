@@ -88,6 +88,16 @@ function build_image {
 
 }
 
+function connect_image {
+  IMAGE=$1
+  CONTAINER_ID=$(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | cut -c1-13 )
+  PID=$(docker inspect --format '{{ .State.Pid }}' $CONTAINER_ID)
+  
+  echo "Connecting ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} with CONTAINER_ID <$CONTAINER_ID> and PID <$PID>"
+
+  sudo nsenter -m -u -n -i -p -t $PID
+}
+
 function stop_image {
   IMAGE=$1
   if [ $(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | wc -l) -gt 0 ]; then
@@ -179,6 +189,21 @@ start)
       docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
     esac
     ;;
+connect)
+  case "$2" in
+    heise_bpm)
+      echo "Connecting into running Heise_BPM container"
+      connect_image "HEISE_BPM"
+      ;;
+    heise_fsw)
+      echo "Connecting into running Heise_FSW container"
+      connect_image "HEISE_FSW"
+      ;;
+    *)
+      echo "usage: ${NAME} connect (heise_bpm|heise_fsw)"
+      exit 1
+  esac
+  ;;
 build)
   case "$2" in
     bpm)
@@ -230,21 +255,24 @@ stop)
     all)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
+      stop_image "POSTGRES"
+      ./cleanup.sh
       ;;
     *)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
       stop_image "POSTGRES"
+      ./cleanup.sh
     esac
     ;;
 status)
     docker ps
     ;;
 help)
-    echo "usage: ${NAME} (remove|start|build|status)"
+    echo "usage: ${NAME} (remove|start|build|status|connect)"
     ;;
 *)
-    echo "usage: ${NAME} (remove|start|build|status)"
+    echo "usage: ${NAME} (remove|start|build|status|connect)"
     exit 1
 esac
 
