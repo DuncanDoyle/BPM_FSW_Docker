@@ -83,6 +83,14 @@ function build_image {
   IMAGE=$1
   pushd ./${IMAGE}_Image >/dev/null
   echo "Building ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]}"
+
+  if [ "$IMAGE" == "HEISE_BPM" ]; then
+	echo "Calling maven to create dashboard importer"
+        pushd dashboard-importer > /dev/null
+	mvn clean package > /dev/null
+	popd
+  fi
+
   docker build -q --rm -t ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} .
   popd > /dev/null
 
