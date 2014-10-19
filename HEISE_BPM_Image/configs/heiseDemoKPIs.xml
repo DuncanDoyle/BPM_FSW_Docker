@@ -91,11 +91,11 @@
     </dataproperties>
   </dataprovider>
   <kpi code="kpi_38161394104085425">
-    <description language="de">- Neue Kennziffer -</description>
+    <description language="en">Contributions by tariff</description>
     <description language="zh">- &#26032;&#24314;&#25351;&#26631; -</description>
     <description language="pt">- Novo indicador -</description>
     <description language="fr">- Nouvel indicateur -</description>
-    <description language="en">Beitragssummen nach Tarif</description>
+    <description language="de">Beitragssummen nach Tarif</description>
     <description language="es">- Nuevo indicador - </description>
     <description language="ja">- &#26032;&#12375;&#12356;&#25351;&#27161; -</description>
     <provider code="dataprovider_30201394103528403" />
