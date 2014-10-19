@@ -85,7 +85,7 @@ Please copy the downloaded products as follows:
 * jboss-eap-6.1.0.GA.zip into the folder `EAP_Image` root folder
 * jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip into the folder `BPM_Image` root folder
 * jboss-fsw-installer-6.0.0.GA-redhat-4.jar into the `FSW_Image` root folder
-* jboss-dv-installer-6.0.0.GA-redhat-4.jar into the `DV_Image/software' folder
+* jboss-dv-installer-6.0.0.GA-redhat-4.jar into the `DV_Image/software` folder
 
 After the files are downloaded, run `demo.sh build all` 
 

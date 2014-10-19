@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM mattdm/fedora:f20
+FROM    mattdm/fedora:f20
 
 MAINTAINER psteiner <psteiner@redhat.com>
 
@@ -10,7 +10,7 @@ RUN echo "root:change12_me" | /usr/sbin/chpasswd
 
 # Update the system
 RUN yum -y update && yum clean all
-RUN yum -y install perl java-1.7.0-openjdk unzip sudo mysql-connector-java;yum clean all
+RUN yum -y install perl java-1.7.0-openjdk openssh-server openssh-clients unzip sudo mysql-connector-java;yum clean all
 
 ENV JAVA_HOME /usr/lib/jvm/jre
 ENV HOME /home/jbosseap
