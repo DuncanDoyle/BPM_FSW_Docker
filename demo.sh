@@ -36,7 +36,8 @@ DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
 
 DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]="psteiner/heise_datavirt"
 
-DOCKER_IMAGE["JBDS:IMAGE_NAME"]="psteiner/heise_datavirt"
+DOCKER_IMAGE["JBDS:IMAGE_NAME"]="psteiner/jbds"
+DOCKER_IMAGE["JBDS:ZIP"]="software/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar"
 
 
 function sanity_check {
@@ -88,6 +89,8 @@ function remove_all_images {
   remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
+  remove_image ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}
+
 }
 
 function build_image {
@@ -154,6 +157,7 @@ sanity_check "BPM"
 sanity_check "FSW"
 sanity_check "DV"
 sanity_check "HEISE_BPM"
+sanity_check "JBDS"
 
 case "$1" in
 remove)
@@ -190,6 +194,10 @@ remove)
       echo "Removing Heise_DV Image(s)"
       remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
       ;;
+    jbds)
+      echo "Removing Heise_DV Image(s)"
+      remove_image ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}
+      ;;
     all)
       echo "Removing All Images"
       remove_all_images
@@ -205,11 +213,15 @@ start)
     # If there isn't a stopped image
     if [ ! $( docker ps -a | grep fsw | wc -l ) -gt 0 ]; then
       # Create a new FSW Container
+      echo "Starting ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}"
       docker run -P -h fsw --name fsw -d ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
     else
       # Start the existing container
+      echo "Re-Starting ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}"
       docker start fsw
     fi
+  else
+    echo "${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]} already running"
   fi
 
   # If there is no postgres image running
@@ -217,28 +229,34 @@ start)
     # If there isn't a stopped image
     if [ ! $( docker ps -a | grep postgres | wc -l ) -gt 0 ]; then
       # Create a new FSW Container
+      echo "Starting ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}"
       docker run -P -h postgres --name postgres -d ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
     else
       # Start the existing container
       docker start postgres
+      echo "Re-Starting ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}"
     fi
+  else
+    echo "${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]} already running"
   fi
 
   case "$2" in
     jbds)
-      docker run -i -t -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /home/psteiner/workspace:/tmp/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' --link postgres:postgres ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]} 
+      echo "Starting ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}"
+      docker run -i -t -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /home/psteiner/workspace:/tmp/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' --link postgres:postgres ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]} /home/jboss/jbdevstudio/jbdevstudio-unity
      ;;
-    attached)
-      # Start the Image and link all exposed ports
-      # After the Image is stopped it is automatically removed
-      docker run -P --rm --link fsw:fsw ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
+    all)
+      echo "Starting ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}"
+      docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
+      echo "${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}"
+      docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -v /home/psteiner/workspace:/tmp/workspace -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
       ;;
     *)
-      # By default we start the bpm in detached mode with fixed ports
-      docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
-#     docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
+      echo "usage: ${NAME} start (all|jbds)"
+      exit 1
     esac
     ;;
+
 connect)
   case "$2" in
     heise_bpm)
@@ -257,8 +275,12 @@ connect)
       echo "Connecting into running postgresql container"
       connect_image "POSTGRES"
       ;;
+    jbds)
+      echo "Connecting into running postgresql container"
+      connect_image "JBDS"
+      ;;
     *)
-      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv|postgres)"
+      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv|postgres|jbds)"
       exit 1
   esac
   ;;
@@ -304,39 +326,33 @@ ip)
 build)
   case "$2" in
     bpm)
-      echo "Building BPM Image"
       build_image "BPM"
       ;;
     fsw)
-      echo "Building FSW Image"
       build_image "FSW"
       ;;
     eap)
-      echo "Building EAP Image"
       build_image "EAP"
       ;;
     dv)
-      echo "Building Data Virtualization Image"
       build_image "DV"
       ;;
     postgres)
-      echo "Building Postgres Image"
       build_image "POSTGRES"
       ;;
     heise_bpm)
-      echo "Building Heise_BPM Image"
       build_image "HEISE_BPM"
       ;;
     heise_fsw)
-      echo "Building Heise_FSW Image"
       build_image "HEISE_FSW"
       ;;
     heise_dv)
-      echo "Building Heise_DV Image"
       build_image "HEISE_DV"
       ;;
+    jbds)
+      build_image "JBDS"
+      ;;
     all)
-      echo "Building All Images"
       build_image "EAP"
       build_image "BPM"
       build_image "FSW"
@@ -345,9 +361,10 @@ build)
       build_image "HEISE_BPM"
       build_image "HEISE_FSW"
       build_image "HEISE_DV"
+      build_image "JBDS"
       ;;
     *)
-      echo "usage: ${NAME} build (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|heise_dv|all)"
+      echo "usage: ${NAME} build (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|heise_dv|jbds|all)"
       exit 1
     esac
     ;;

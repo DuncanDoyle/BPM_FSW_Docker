@@ -1,19 +1,26 @@
 # DOCKER-VERSION 0.3.4
-FROM   psteiner/eap
+FROM psteiner/datavirt
 
 MAINTAINER wrichter <wrichter@redhat.com>
+MAINTAINER psteiner <psteiner@redhat.com>
 
 USER root
 
-RUN yum -y install libcanberra-gtk2 PackageKit-gtk-module
+RUN yum -y install libcanberra-gtk2 PackageKit-gtk-module java-1.7.0-openjdk-devel
 
-USER jbosseap
+USER jboss
    
-ADD . $HOME/tmp/
+ADD software/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar $HOME/tmp/
+ADD config/InstallConfigRecord.xml $HOME/tmp/
 
 RUN java -jar $HOME/tmp/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar $HOME/tmp/InstallConfigRecord.xml 
 
+USER root
 RUN rm $HOME/tmp/*
+
+USER jboss
+# next line needed to circumvent a bug
+RUN echo -e "-Dorg.eclipse.swt.internal.gtk.cairoGraphics=false" >> /home/jboss/jbdevstudio/studio/jbdevstudio.ini
 
 CMD $HOME/jbdevstudio/jbdevstudio-unity
 
