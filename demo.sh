@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
 # Created by Juergen Hoffmann <buddy@redhat.com>
+# extended by Patrick Steiner <psteiner@redhat.com>
 #
 
 # This script builds all required docker images.
-# Run this script before you run the start.sh script.
 
 set -e
 NAME=$(basename $0)
@@ -35,6 +35,8 @@ DOCKER_IMAGE["HEISE_BPM:URL"]="http://jdbc.postgresql.org/download/postgresql-8.
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
 
 DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]="psteiner/heise_datavirt"
+
+DOCKER_IMAGE["JBDS:IMAGE_NAME"]="psteiner/heise_datavirt"
 
 
 function sanity_check {
@@ -113,6 +115,24 @@ function connect_image {
   echo "Connecting ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} with CONTAINER_ID <$CONTAINER_ID> and PID <$PID>"
 
   sudo nsenter -m -u -n -i -p -t $PID
+}
+
+function commit_image {
+  IMAGE=$1
+  CONTAINER_ID=$(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | cut -c1-13 )
+  PID=$(docker inspect --format '{{ .State.Pid }}' $CONTAINER_ID)
+  
+  echo "Commit ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} with CONTAINER_ID <$CONTAINER_ID>"
+
+  docker commit $CONTAINER_ID ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]}  
+}
+
+function get_ip {
+  IMAGE=$1
+  CONTAINER_ID=$(docker ps | grep ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} | cut -c1-13 )
+  IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $CONTAINER_ID)
+  
+  echo "IP adress of ${DOCKER_IMAGE["${IMAGE}:IMAGE_NAME"]} is <$IP>"
 }
 
 function stop_image {
@@ -205,6 +225,9 @@ start)
   fi
 
   case "$2" in
+    jbds)
+      docker run -i -t -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /home/psteiner/workspace:/tmp/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' --link postgres:postgres ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]} 
+     ;;
     attached)
       # Start the Image and link all exposed ports
       # After the Image is stopped it is automatically removed
@@ -213,7 +236,7 @@ start)
     *)
       # By default we start the bpm in detached mode with fixed ports
       docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
-      docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
+#     docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
     esac
     ;;
 connect)
@@ -230,8 +253,51 @@ connect)
       echo "Connecting into running Heise_DV container"
       connect_image "HEISE_DV"
       ;;
+    postgres)
+      echo "Connecting into running postgresql container"
+      connect_image "POSTGRES"
+      ;;
     *)
-      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv)"
+      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv|postgres)"
+      exit 1
+  esac
+  ;;
+commit)
+  case "$2" in
+    heise_bpm)
+      commit_image "HEISE_BPM"
+      ;;
+    heise_fsw)
+      commit_image "HEISE_FSW"
+      ;;
+    heise_dv)
+      commit_image "HEISE_DV"
+      ;;
+    jbds)
+      commit_image "JBDS"
+      ;;
+    *)
+      echo "usage: ${NAME} commit (heise_bpm|heise_fsw|heise_dv|jbds)"
+      exit 1
+  esac
+  ;;
+
+ip)
+  case "$2" in
+    heise_bpm)
+      get_ip "HEISE_BPM"
+      ;;
+    heise_fsw)
+      get_ip "HEISE_FSW"
+      ;;
+    heise_dv)
+      get_ip "HEISE_DV"
+      ;;
+    postgres)
+      get_ip "POSTGRES"
+      ;;
+    *)
+      echo "usage: ${NAME} ip (heise_bpm|heise_fsw|heise_dv|postgres)"
       exit 1
   esac
   ;;
@@ -248,6 +314,10 @@ build)
     eap)
       echo "Building EAP Image"
       build_image "EAP"
+      ;;
+    dv)
+      echo "Building Data Virtualization Image"
+      build_image "DV"
       ;;
     postgres)
       echo "Building Postgres Image"
