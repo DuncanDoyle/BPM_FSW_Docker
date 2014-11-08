@@ -17,7 +17,7 @@ RUN yum -y update;yum clean all
 # Code taken from: https://github.com/DataVirtualizationByExample/DVWorkshop
 ###########################################################################
 RUN yum -y install http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
-RUN yum -y install postgresql93-server postgresql93-contrib sudo; yum clean all
+RUN yum -y install postgresql93-server postgresql93-contrib phpPgAdmin sudo; yum clean all
 RUN service postgresql-9.3 initdb
 
 ############################################
@@ -51,14 +51,15 @@ RUN mv $HOME/pgpass /root/.pgpass && \
    chmod 0600 /root/.pgpass && \
    chmod +x $HOME/postgresql-populate-bam-data.sh  && \
    mv $HOME/pg_hba.conf $PGDATA  && \
-   chmod +r $PGDATA/pg_hba.conf
+   chmod +r $PGDATA/pg_hba.conf && \
+   mv $HOME/phpPgAdmin.conf /etc/httpd/conf.d/
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
 RUN echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
 RUN echo "" >> $PGDATA/postgresql.conf
 
-EXPOSE 5432
+EXPOSE 5432 80
 
 USER root
 

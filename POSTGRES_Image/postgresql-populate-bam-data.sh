@@ -1,6 +1,7 @@
 #!/bin/bash
 
 service postgresql-9.3 start
+service httpd start
 
 psql -d bamdb -U bam -f /home/postgres/postgresql-test.sql
 

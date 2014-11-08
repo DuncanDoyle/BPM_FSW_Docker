@@ -23,4 +23,16 @@ INSERT INTO "bam.hausrat_neugeschaeft" VALUES ('0000000010', 30+ROUND(RANDOM()*1
 INSERT INTO "bam.hausrat_neugeschaeft" VALUES ('0000000011', 30+ROUND(RANDOM()*100), 'Premium', 'Internet', 50+ROUND(RANDOM()*100)*2.0*RANDOM()*100 , 'Abgeschlossen', CURRENT_DATE - INTEGER '1', 'mfh');
 INSERT INTO "bam.hausrat_neugeschaeft" VALUES ('0000000012', 30+ROUND(RANDOM()*100), 'Standard', 'Internet', 50+ROUND(RANDOM()*100)*2.0*RANDOM()*100 , 'Abgeschlossen', CURRENT_DATE - INTEGER '1', 'mfh');
 
+DROP TABLE "customer";
+CREATE TABLE "customer" (
+    cid        			 INTEGER primary key,
+    firstname      		 varchar(50),
+    lastname       		 varchar(50),
+    street				 varchar(50),
+    zip					 varchar(50),
+    town				 varchar(50),
+    country				 varchar(50)
+);
+
+INSERT INTO "customer" VALUES (1, 'Patrick', 'Steiner', 'Werner-von-Siemens-Ring', '85630', 'Grasbrunn' , 'Germany');
 
