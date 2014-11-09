@@ -15,7 +15,15 @@ USER root
 RUN yum -y update;yum clean all
 # RUN yum -y install libcanberra-gtk2 PackageKit-gtk-module java-1.7.0-openjdk-devel
 
+# Create the datasource in EAP
+RUN mkdir $INSTALLDIR/support
+ADD config/standalone.xml $INSTALLDIR/support/standalone.xml
+RUN mv $INSTALLDIR/support/standalone.xml $INSTALLDIR/jboss-eap-6.1/standalone/configuration/standalone.xml
+RUN rm -rf $INSTALLDIR/support
+
+EXPOSE 22 3306 5432 8080 9990 27017 9999
+
 CMD /home/jboss/run.sh
 
 # Build command -> docker build --rm -t psteiner/dv_heise .
-# run command -> docker run -i -t -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' psteiner/heise_dv
+# docker run -P -i -t psteiner/heise_datavirt /bin/bash

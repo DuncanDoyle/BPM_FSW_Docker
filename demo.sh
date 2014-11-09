@@ -38,7 +38,8 @@ DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]="psteiner/heise_datavirt"
 
 DOCKER_IMAGE["JBDS:IMAGE_NAME"]="psteiner/jbds"
 DOCKER_IMAGE["JBDS:ZIP"]="software/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar"
-
+DOCKER_IMAGE["JBDS:HTTP_PORT"]="49200"
+DOCKER_IMAGE["JBDS:ADMIN_PORT"]="49210"
 
 function sanity_check {
   IMAGE=$1
@@ -243,7 +244,7 @@ start)
   case "$2" in
     jbds)
       echo "Starting ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}"
-      docker run -i -t -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /home/psteiner/workspace:/tmp/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' --link postgres:postgres ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]} /home/jboss/jbdevstudio/jbdevstudio-unity
+      docker run -i -t -p ${DOCKER_IMAGE["JBDS:HTTP_PORT"]}:8080 -p ${DOCKER_IMAGE["JBDS:ADMIN_PORT"]}:9990 -e DISPLAY=unix$DISPLAY -e TERM=$TERM -v /home/psteiner/workspace:/tmp/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --lxc-conf='lxc.cgroup.devices.allow = c 116:* rwm' --link postgres:postgres ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]} /home/jboss/jbdevstudio/jbdevstudio-unity
      ;;
     all)
       echo "Starting ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}"
@@ -317,6 +318,9 @@ ip)
       ;;
     postgres)
       get_ip "POSTGRES"
+      ;;
+    jbds)
+      get_ip "JBDS"
       ;;
     *)
       echo "usage: ${NAME} ip (heise_bpm|heise_fsw|heise_dv|postgres)"

@@ -22,6 +22,8 @@ USER jboss
 # next line needed to circumvent a bug
 RUN echo -e "-Dorg.eclipse.swt.internal.gtk.cairoGraphics=false" >> /home/jboss/jbdevstudio/studio/jbdevstudio.ini
 
+EXPOSE 22 3306 5432 8080 9990 27017 9999
+
 CMD $HOME/jbdevstudio/jbdevstudio-unity
 
 # Build command -> docker build --rm -t wrichter/jbds .
