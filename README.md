@@ -1,3 +1,13 @@
+# About this project
+This repo is a combination of **Red Hat JBoss BPM Suite V6** and **Red Hat JBoss Fuse Service Works V6**, showing a sample insurance process for requesting a calculating a household insurance.
+
+The process includes:
+* Human tasks
+* Web Service call for calculating the insurance
+* rules for calculating the insurance
+
+In addition you can use this project to see how to author rules, decision tables and testcases.
+
 # Docker Images
 
 This is a set of Docker images which together form a Red Hat BPM-Suite and Red Hat Fuse ServiceWorks demo environment.
