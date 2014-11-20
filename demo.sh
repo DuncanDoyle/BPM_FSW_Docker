@@ -22,10 +22,6 @@ DOCKER_IMAGE["FSW:IMAGE_NAME"]="psteiner/fsw"
 DOCKER_IMAGE["FSW:ZIP"]="jboss-fsw-installer-6.0.0.GA-redhat-4.jar"
 DOCKER_IMAGE["FSW:URL"]="http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip"
 
-DOCKER_IMAGE["DV:IMAGE_NAME"]="psteiner/datavirt"
-DOCKER_IMAGE["DV:ZIP"]="software/jboss-dv-installer-6.0.0.GA-redhat-4.jar"
-DOCKER_IMAGE["DV:URL"]="http://www.jboss.org/download-manager/file/jboss-dv-installer-6.0.0.GA-redhat-4.jar"
-
 DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]="psteiner/postgres"
 
 DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]="psteiner/heise_bpm"
@@ -33,13 +29,6 @@ DOCKER_IMAGE["HEISE_BPM:ZIP"]="postgresql-8.4-703.jdbc4.jar"
 DOCKER_IMAGE["HEISE_BPM:URL"]="http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar"
 
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
-
-DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]="psteiner/heise_datavirt"
-
-DOCKER_IMAGE["JBDS:IMAGE_NAME"]="psteiner/jbds"
-DOCKER_IMAGE["JBDS:ZIP"]="software/jbdevstudio-product-universal-7.1.1.GA-v20140314-2145-B688.jar"
-DOCKER_IMAGE["JBDS:HTTP_PORT"]="49200"
-DOCKER_IMAGE["JBDS:ADMIN_PORT"]="49210"
 
 function sanity_check {
   IMAGE=$1
@@ -85,12 +74,9 @@ function remove_all_images {
   remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["FSW:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["DV:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
   remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}
 
 }
 
@@ -156,9 +142,7 @@ function stop_image {
 sanity_check "EAP"
 sanity_check "BPM"
 sanity_check "FSW"
-sanity_check "DV"
 sanity_check "HEISE_BPM"
-sanity_check "JBDS"
 
 case "$1" in
 remove)
@@ -175,10 +159,6 @@ remove)
       echo "Removing EAP Image(s)"
       remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
       ;;
-    dv)
-      echo "Removing DV Image(s)"
-      remove_image ${DOCKER_IMAGE["DV:IMAGE_NAME"]}
-      ;;
     postgres)
       echo "Removing Postgres Image(s)"
       remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
@@ -190,14 +170,6 @@ remove)
     heise_fsw)
       echo "Removing Heise_FSW Image(s)"
       remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
-      ;;
-    heise_dv)
-      echo "Removing Heise_DV Image(s)"
-      remove_image ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
-      ;;
-    jbds)
-      echo "Removing Heise_DV Image(s)"
-      remove_image ${DOCKER_IMAGE["JBDS:IMAGE_NAME"]}
       ;;
     all)
       echo "Removing All Images"
@@ -249,11 +221,9 @@ start)
     all)
       echo "Starting ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}"
       docker run -p 49160:8080 -p 49170:9990 --link fsw:fsw --link postgres:postgres -d ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
-      echo "${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}"
-      docker run -p 49180:8080 -p 49190:9990 --link postgres:postgres -v /home/psteiner/workspace:/tmp/workspace -d ${DOCKER_IMAGE["HEISE_DV:IMAGE_NAME"]}
       ;;
     *)
-      echo "usage: ${NAME} start (all|jbds)"
+      echo "usage: ${NAME} start all"
       exit 1
     esac
     ;;
@@ -268,20 +238,12 @@ connect)
       echo "Connecting into running Heise_FSW container"
       connect_image "HEISE_FSW"
       ;;
-    heise_dv)
-      echo "Connecting into running Heise_DV container"
-      connect_image "HEISE_DV"
-      ;;
     postgres)
       echo "Connecting into running postgresql container"
       connect_image "POSTGRES"
       ;;
-    jbds)
-      echo "Connecting into running postgresql container"
-      connect_image "JBDS"
-      ;;
     *)
-      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|heise_dv|postgres|jbds)"
+      echo "usage: ${NAME} connect (heise_bpm|heise_fsw|postgres)"
       exit 1
   esac
   ;;
@@ -293,14 +255,8 @@ commit)
     heise_fsw)
       commit_image "HEISE_FSW"
       ;;
-    heise_dv)
-      commit_image "HEISE_DV"
-      ;;
-    jbds)
-      commit_image "JBDS"
-      ;;
     *)
-      echo "usage: ${NAME} commit (heise_bpm|heise_fsw|heise_dv|jbds)"
+      echo "usage: ${NAME} commit (heise_bpm|heise_fsw)"
       exit 1
   esac
   ;;
@@ -313,17 +269,11 @@ ip)
     heise_fsw)
       get_ip "HEISE_FSW"
       ;;
-    heise_dv)
-      get_ip "HEISE_DV"
-      ;;
     postgres)
       get_ip "POSTGRES"
       ;;
-    jbds)
-      get_ip "JBDS"
-      ;;
     *)
-      echo "usage: ${NAME} ip (heise_bpm|heise_fsw|heise_dv|postgres)"
+      echo "usage: ${NAME} ip (heise_bpm|heise_fsw|postgres)"
       exit 1
   esac
   ;;
@@ -338,9 +288,6 @@ build)
     eap)
       build_image "EAP"
       ;;
-    dv)
-      build_image "DV"
-      ;;
     postgres)
       build_image "POSTGRES"
       ;;
@@ -350,25 +297,16 @@ build)
     heise_fsw)
       build_image "HEISE_FSW"
       ;;
-    heise_dv)
-      build_image "HEISE_DV"
-      ;;
-    jbds)
-      build_image "JBDS"
-      ;;
     all)
       build_image "EAP"
       build_image "BPM"
       build_image "FSW"
-      build_image "DV"
       build_image "POSTGRES"
       build_image "HEISE_BPM"
       build_image "HEISE_FSW"
-      build_image "HEISE_DV"
-      build_image "JBDS"
       ;;
     *)
-      echo "usage: ${NAME} build (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|heise_dv|jbds|all)"
+      echo "usage: ${NAME} build (bpm|fsw|eap|dv|postgres|heise_bpm|heise_fsw|all)"
       exit 1
     esac
     ;;
@@ -380,20 +318,15 @@ stop)
     heise_fsw)
       stop_image "HEISE_FSW"
       ;;
-    heise_dv)
-      stop_image "HEISE_DV"
-      ;;
     all)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
-      stop_image "HEISE_DV"
       stop_image "POSTGRES"
       ./cleanup.sh
       ;;
     *)
       stop_image "HEISE_BPM"
       stop_image "HEISE_FSW"
-      stop_image "HEISE_DV"
       stop_image "POSTGRES"
       ./cleanup.sh
     esac
