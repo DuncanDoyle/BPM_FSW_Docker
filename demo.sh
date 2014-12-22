@@ -2,6 +2,7 @@
 #
 # Created by Juergen Hoffmann <buddy@redhat.com>
 # extended by Patrick Steiner <psteiner@redhat.com>
+# extended by Duncan Doyle <ddoyle@redhat.com>
 #
 
 # This script builds all required docker images.
@@ -13,22 +14,28 @@ declare -A DOCKER_IMAGE
 DOCKER_IMAGE["EAP:IMAGE_NAME"]="psteiner/eap"
 DOCKER_IMAGE["EAP:ZIP"]="jboss-eap-6.1.1.zip"
 DOCKER_IMAGE["EAP:URL"]="http://www.jboss.org/download-manager/file/jboss-eap-6.1.1.zip"
+DOCKER_IMAGE["EAP:ORDER"]=1
 
 DOCKER_IMAGE["BPM:IMAGE_NAME"]="psteiner/bpm"
 DOCKER_IMAGE["BPM:ZIP"]="jboss-bpms-6.0.3.GA-redhat-1-deployable-eap6.x.zip"
 DOCKER_IMAGE["BPM:URL"]="https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=30853&product=bpm.suite"
+DOCKER_IMAGE["BPM:ORDER"]=2
 
 DOCKER_IMAGE["FSW:IMAGE_NAME"]="psteiner/fsw"
 DOCKER_IMAGE["FSW:ZIP"]="jboss-fsw-installer-6.0.0.GA-redhat-4.jar"
 DOCKER_IMAGE["FSW:URL"]="http://www.jboss.org/download-manager/file/jboss-fsw-6.0.0.GA.zip"
+DOCKER_IMAGE["FSW:ORDER"]=3
 
 DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]="psteiner/postgres"
+DOCKER_IMAGE["POSTGRES:ORDER"]=4
 
 DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]="psteiner/heise_bpm"
 DOCKER_IMAGE["HEISE_BPM:ZIP"]="postgresql-8.4-703.jdbc4.jar"
 DOCKER_IMAGE["HEISE_BPM:URL"]="http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar"
+DOCKER_IMAGE["HEISE_BPM:ORDER"]=5
 
 DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]="psteiner/heise_fsw"
+DOCKER_IMAGE["HEISE_FSW:ORDER"]=6
 
 function sanity_check {
   IMAGE=$1
@@ -71,13 +78,34 @@ function remove_image {
 
 
 function remove_all_images {
-  remove_image ${DOCKER_IMAGE["EAP:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["BPM:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["FSW:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["POSTGRES:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["HEISE_BPM:IMAGE_NAME"]}
-  remove_image ${DOCKER_IMAGE["HEISE_FSW:IMAGE_NAME"]}
+  # We need to iterate over the images in their reverse order.
+  # This is required because one image can depend on another image.
 
+  # TODO: If someone knows how we can traverse a map in reverse order, this function could be a lot simpler :-)
+  # First we build a map where the ORDER number of the image is the key.
+  IMAGES_MAP=()
+  
+  for i in "${!DOCKER_IMAGE[@]}"
+  do
+    if [[ "$i" == *"IMAGE_NAME"* ]]; then
+      IMAGE_KEY=${i%:IMAGE_NAME}
+      IMAGE_ORDER=${DOCKER_IMAGE["$IMAGE_KEY:ORDER"]}
+      IMAGES_MAP[$IMAGE_ORDER]=${DOCKER_IMAGE[$i]}
+    fi
+  done
+
+  # Next we put those image names in an array. This allows us to traverse the new array in reverse order using position numbers. (because the order numbers don't have to be sequential, we can't do this with the IMAGES_MAP).
+  IMAGES_ARRAY=()
+  for i in "${!IMAGES_MAP[@]}"
+  do
+	IMAGES_ARRAY+=("${IMAGES_MAP[$i]}")
+  done
+
+  # Now traverse our array with image names in reverse order.
+  for ((i=${#IMAGES_ARRAY[@]}-1; i>=0; i--));
+  do
+    remove_image ${IMAGES_ARRAY[$i]}
+  done
 }
 
 function build_image {
